@@ -1,0 +1,18 @@
+{
+    "name": "daw/ap2.0-mvc-twig",
+    "description": "Actividad 2.0 DAW",
+    "type": "project",
+    "license": "MIT",
+    "require": {
+        "twig/twig": "^3.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "src\\": "src/",
+            "src\\Controllers\\": "src/Controllers/",
+            "src\\Models\\": "src/Models/",
+            "src\\Core\\": "src/Core/",
+            "Config\\": "config/"
+        }
+    }
+}

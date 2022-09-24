@@ -1,0 +1,42 @@
+Options All -Indexes
+
+# Esto te permite hacer uso del módulo mod_rewrite 
+# para poder reescribir o redireccionar URLs.
+RewriteEngine on
+
+# Esta directiva nos permite definir el fichero de configuración .htaccess
+# fuera del directorio raíz de la aplicación, o sitio (en este caso, fuera de:
+# C:/xampp_7.4.21/htdocs/TrAZA_app/public)
+# RewriteBase /
+
+# Si las siguientes condiciones son verdaderas, entonces redireccionamos la URL:
+# Si el nombre de fichero solicitado no es un directorio,
+RewriteCond %{REQUEST_FILENAME} !-d
+# Y además, si el nombre de fichero solicitado no es un archivo que 
+# ya exista (podría existir a nivel de servidor lo que estés buscando por la URL)
+RewriteCond %{REQUEST_FILENAME} !-f
+# Y el fichero solicitado no es un enlace simbólico
+RewriteCond %{REQUEST_FILENAME} !-l
+
+# Entonces sobreescribe la URL de la siguiente forma:
+# Coge todo el fichero solicitado y se convierte, por así decirlo,
+# a un parámetro de URL. Esto además añade cualquier texto
+# de la URL original como parámetros adicionales [QSA]
+# Con [L] lo que le indicas es que no siga leyendo más reglas 
+# (en caso de que sigas teniendo reglas en el .htaccess).
+# Ten en cuenta que (.*) es una expresión regular que, directamente
+# Hace match con cualquier caracter que se ingrese.
+RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+
+# Activación compresión gzip
+php_flag zlib.output_compression On
+php_value zlib.output_compression_level 2
+
+# Activación compresión archivos CSS y JS
+<Files *.css>
+SetOutputFilter DEFLATE
+</Files>
+
+<Files *.js>
+SetOutputFilter DEFLATE
+</Files>
